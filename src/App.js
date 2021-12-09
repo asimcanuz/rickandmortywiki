@@ -4,10 +4,26 @@ import Filter from "./components/Filter/Filter";
 import Navbar from "./components/Navbar/Navbar";
 import Pagination from "./components/Pagination/Pagination";
 import Search from "./components/Search/Search";
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Episodes from "./Pages/Episodes";
+import Location from "./Pages/Location";
 // Rick And Morty api : https://rickandmortyapi.com/
 
 function App() {
+  return (
+    <Router>
+      <div className="App">
+        <Navbar />
+      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/episodes" element={<Episodes />} />
+        <Route path="/location" element={<Location />} />
+      </Routes>
+    </Router>
+  );
+}
+const Home = () => {
   let [fetchedData, setFetchedData] = useState([]);
   let { info, results } = fetchedData;
   let [pageNumber, setPageNumber] = useState(1);
@@ -16,7 +32,7 @@ function App() {
   let [gender, setGender] = useState("");
   let [species, setSpecies] = useState("");
 
-  let api = `https://rickandmortyapi.com/api/character/?page=${pageNumber}&name=${search}&status=${status}&gender=${gender}`;
+  let api = `https://rickandmortyapi.com/api/character/?page=${pageNumber}&name=${search}&status=${status}&gender=${gender}&species=${species}`;
   useEffect(() => {
     (async function () {
       let data = await fetch(api).then((res) => res.json());
@@ -52,6 +68,6 @@ function App() {
       />
     </div>
   );
-}
+};
 
 export default App;
