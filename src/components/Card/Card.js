@@ -13,7 +13,7 @@ const Card = ({ results }) => {
 
 function cardRender(results) {
   return results.map((data) => {
-    let { id, name, status, species, type, location, image } = data;
+    let { id, name, status, location, image } = data;
     return (
       <div
         key={id}
