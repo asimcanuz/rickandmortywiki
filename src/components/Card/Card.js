@@ -1,23 +1,26 @@
 import React from "react";
 import styles from "./Card.module.scss";
+import { Link } from "react-router-dom";
 
-const Card = ({ results }) => {
+const Card = ({ page, results }) => {
   let display;
   if (results) {
-    display = cardRender(results);
+    display = cardRender(page, results);
   } else {
     display = "No Characters Found";
   }
   return <>{display}</>;
 };
 
-function cardRender(results) {
+function cardRender(page, results) {
   return results.map((data) => {
     let { id, name, status, location, image } = data;
     return (
-      <div
+      <Link
+        style={{ textDecoration: "none" }}
+        to={`${page}${id}`}
         key={id}
-        className="col-lg-4 col-md-6 col-sm-6 col-12 position-relative text-dark"
+        className="col-lg-4 col-md-6 col-sm-6 col-12 mb-4 position-relative text-dark"
       >
         <div
           className={`${styles.card} d-flex flex-column justify-content-center`}
@@ -27,13 +30,6 @@ function cardRender(results) {
             src={image}
             alt={`${name}`}
           />
-          <div className={styles.contet}>
-            <div className="fs-5 fw-bold mb-4">{name}</div>
-            <div>
-              <div className="fs-6 fw-normal">Last Location</div>
-              <div className="fs-5">{location.name}</div>
-            </div>
-          </div>
           {/* Anonymus Function sample */}
           {(() => {
             if (status === "Dead") {
@@ -62,8 +58,15 @@ function cardRender(results) {
               );
             }
           })()}
+          <div className={styles.contet}>
+            <div className="fs-5 fw-bold mb-4">{name}</div>
+            <div>
+              <div className="fs-6 fw-normal">Last Location</div>
+              <div className="fs-5">{location.name}</div>
+            </div>
+          </div>
         </div>
-      </div>
+      </Link>
     );
   });
 }

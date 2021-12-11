@@ -7,6 +7,7 @@ import Search from "./components/Search/Search";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Episodes from "./Pages/Episodes";
 import Location from "./Pages/Location";
+import CardDetails from "./components/Card/CardDetails";
 // Rick And Morty api : https://rickandmortyapi.com/
 
 function App() {
@@ -17,8 +18,14 @@ function App() {
       </div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/episodes" element={<Episodes />} />
-        <Route path="/location" element={<Location />} />
+        <Route path="/episodes/" element={<Episodes />} />
+        <Route path="/location/" element={<Location />} />
+      </Routes>
+      <Routes>
+        {" "}
+        <Route path="/:id" element={<CardDetails />} />
+        <Route path="/episodes/:id" element={<CardDetails />} />
+        <Route path="/location/:id" element={<CardDetails />} />
       </Routes>
     </Router>
   );
@@ -56,7 +63,7 @@ const Home = () => {
           />
           <div className="col-lg-8 col-12">
             <div className="row">
-              <Card results={results} />
+              <Card page="/" results={results} />
             </div>
           </div>
         </div>
